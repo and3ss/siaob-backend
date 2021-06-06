@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Tarefa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
-use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class TarefaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return response()->json($users);
+        $tarefas = Tarefa::all();
+        return response()->json($tarefas);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -28,49 +37,50 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->id_setor = $request->id_setor;
-        $user->email = $request->email;
-        $user->password = Hash::make("senha123");
-        $user->save();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Tarefa  $tarefa
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Tarefa $tarefa)
     {
-        return response()->json($user);
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Tarefa  $tarefa
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Tarefa $tarefa)
+    {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Tarefa  $tarefa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Tarefa $tarefa)
     {
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->email = $request->email;
-        $user->id_setor = $request->id_setor;
-        $user->save();
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Tarefa  $tarefa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Tarefa $tarefa)
     {
         //
     }

@@ -18,8 +18,19 @@ use Illuminate\Http\Request;
 // });
 
 Route::post('auth/login', 'AuthController@login');
-Route::post('users/store', 'Api\UserController@store');
 
 Route::group(['middleware' => ['apiJwt']], function(){
   Route::get('users', 'Api\UserController@index');
+  Route::get('users/{user}', 'Api\UserController@show');
+  Route::post('users/store', 'Api\UserController@store');
+  Route::put('users/{user}', 'Api\UserController@update');
+  Route::delete('users/{obra}', 'Api\UserController@destroy');
+
+  Route::get('obras', 'Api\ObraController@index');
+  Route::get('obras/{obra}', 'Api\ObraController@show');
+  Route::post('obras/store', 'Api\ObraController@store');
+  Route::put('obras/{obra}', 'Api\ObraController@update');
+  Route::delete('obras/{obra}', 'Api\ObraController@destroy');
+
+  Route::get('tarefas', 'Api\TarefaController@index');
 });

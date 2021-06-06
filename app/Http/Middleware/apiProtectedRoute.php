@@ -27,7 +27,7 @@ class apiProtectedRoute extends BaseMiddleware
 
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
 
-                return response()->json(['message' => 'Token is invalid']);
+                return response()->json(['error' => 'Unauthorized'], 403);
             } else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
                 // If the token is expired, then it will be refreshed and added to the headers
                 try {

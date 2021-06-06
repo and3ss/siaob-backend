@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'email', 'password',
     ];
 
     /**
@@ -26,8 +26,15 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'setores'
     ];
+
+    /**
+     * The appended attributes shown in JSON results.
+     *
+     * @var array
+     */
+    protected $appends = ['setor'];
 
     /**
      * The attributes that should be cast to native types.
@@ -37,6 +44,26 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The `setor` attribute accessor for JSON results.
+     *
+     * @var string
+     */
+    public function getSetorAttribute()
+    {
+        return $this->setores->nome;
+    }
+
+    /**
+     * Relates table `setores` with `obras`.
+     *
+     * @var string
+     */
+    public function setores()
+    {
+        return $this->hasOne(Setor::class, 'id', 'id_setor');
+    }
     
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
