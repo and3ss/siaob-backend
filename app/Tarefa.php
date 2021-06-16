@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tarefa extends Model
 {
-    protected $hidden = ['subtarefaObj'];
+    protected $hidden = ['objSubtarefa'];
     protected $appends = ['subtarefas'];
 
     public function getSubtarefasAttribute()
     {
-        return $this->subtarefaObj;
+        return $this->objSubtarefa;
     }
 
-    public function subtarefaObj()
+    public function objSubtarefa()
     {
-        return $this->hasMany(Subtarefa::class);
+        return $this->hasMany(Subtarefa::class, 'tarefa_id', 'id');
     }
 }

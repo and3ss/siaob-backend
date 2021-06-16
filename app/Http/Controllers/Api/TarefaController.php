@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Tarefa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Tarefa;
 
 class TarefaController extends Controller
 {
@@ -48,7 +48,7 @@ class TarefaController extends Controller
      */
     public function show(Tarefa $tarefa)
     {
-        //
+        return response()->json($tarefa);
     }
 
     /**

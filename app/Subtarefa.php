@@ -8,6 +8,6 @@ class Subtarefa extends Model
 {
     public function tarefa()
     {
-        return $this->belongsTo(Tarefa::class);
+        return $this->belongsTo(Tarefa::class, 'id', 'tarefa_id');
     }
 }

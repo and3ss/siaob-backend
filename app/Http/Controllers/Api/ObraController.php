@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Obra;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\QueryException;
 
 class ObraController extends Controller
 {
@@ -32,32 +31,23 @@ class ObraController extends Controller
     public function store(Request $request)
     {
         $obra = new Obra();
-        $obra->tipo = $request->tipo;
-        $obra->titulo = mb_convert_case($request->titulo, MB_CASE_TITLE);
-        $obra->convenio = $request->convenio;
         $obra->linked = $request->linked;
+        $obra->tipo = $request->tipo;
         $obra->dataReferencia = $request->dataReferencia;
         $obra->dataInicioVigencia = $request->dataInicioVigencia;
         $obra->dataFinalVigencia = $request->dataFinalVigencia;
         $obra->dataPublicacao = $request->dataPublicacao;
         $obra->dataUltimaLiberacao = $request->dataUltimaLiberacao;
         $obra->dataConclusao = $request->dataConclusao;
-        $obra->situacao = mb_convert_case($request->situacao, MB_CASE_UPPER);
-        $obra->objeto = mb_convert_case($request->objeto, MB_CASE_TITLE);
-        $obra->orgao = mb_convert_case($request->orgao, MB_CASE_TITLE);
+        $obra->situacao = $request->situacao;
+        $obra->titulo = $request->titulo;
+        $obra->objeto = $request->objeto;
+        $obra->orgao = $request->orgao;
         $obra->uf = $request->uf;
         $obra->cidade = $request->cidade;
-        $obra->local = mb_convert_case($request->local, MB_CASE_TITLE);
+        $obra->local = $request->local;
         $obra->valor = $request->valor;
-
-        try {
-            $obra->save();
-        } catch(QueryException $e){
-            $errorCode = $e->errorInfo[1];
-            if($errorCode == '1062'){
-                return response()->json(['error' => 'Duplicate Entry'], 409);
-            }
-        }
+        $obra->save();
     }
 
     /**
@@ -68,9 +58,9 @@ class ObraController extends Controller
      */
     public function show(Obra $obra)
     {
-        $tarefaObj = $obra->tarefas()->first();
-        $obra->tarefa = $tarefaObj['nome'];
-        // $tarefa = $obra->tarefas()->first();
+        // $tarefaObj = $obra->tarefas()->first();
+        // $obra->tarefa = $tarefaObj['nome'];
+        // // $tarefa = $obra->tarefas()->first();
         return response()->json($obra);
     }
 
@@ -84,19 +74,19 @@ class ObraController extends Controller
     public function update(Request $request, Obra $obra)
     {
         $obra->tipo = $request->tipo;
-        $obra->titulo = mb_convert_case($request->titulo, MB_CASE_TITLE);
         $obra->dataReferencia = $request->dataReferencia;
         $obra->dataInicioVigencia = $request->dataInicioVigencia;
         $obra->dataFinalVigencia = $request->dataFinalVigencia;
         $obra->dataPublicacao = $request->dataPublicacao;
         $obra->dataUltimaLiberacao = $request->dataUltimaLiberacao;
         $obra->dataConclusao = $request->dataConclusao;
-        $obra->situacao = mb_convert_case($request->situacao, MB_CASE_TITLE);
-        $obra->objeto = mb_convert_case($request->objeto, MB_CASE_TITLE);
-        $obra->orgao = mb_convert_case($request->orgao, MB_CASE_TITLE);
+        $obra->situacao = $request->situacao;
+        $obra->titulo = $request->titulo;
+        $obra->objeto = $request->objeto;
+        $obra->orgao = $request->orgao;
         $obra->uf = $request->uf;
         $obra->cidade = $request->cidade;
-        $obra->local = mb_convert_case($request->local, MB_CASE_TITLE);
+        $obra->local = $request->local;
         $obra->valor = $request->valor;
         $obra->save();
     }
